@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sharmin ❤️</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  height:100vh;
+  font-family:"Comic Sans MS","Poppins",sans-serif;
+  background:linear-gradient(135deg,#ffd1dc,#ffc0cb,#ffb6c1);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  overflow:hidden;
+  color:white;
+}
+
+/* Cute glass card */
+.container{
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(10px);
+  border-radius:24px;
+  padding:28px 20px;
+  width:92%;
+  max-width:420px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+  position:relative;
+}
+
+h1{
+  margin:0;
+  font-size:1.8rem;
+}
+
+h2{
+  margin-top:12px;
+  font-size:1.3rem;
+}
+
+button{
+  border:none;
+  padding:14px 20px;
+  border-radius:999px;
+  font-size:17px;
+  margin:10px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+#yesBtn{
+  background:#ff4d6d;
+  color:white;
+  box-shadow:0 6px 18px rgba(0,0,0,0.2);
+}
+
+#noBtn{
+  background:#888;
+  color:white;
+  position:absolute;
+}
+
+/* floating hearts */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  animation:floatUp linear forwards;
+  pointer-events:none;
+}
+
+@keyframes floatUp{
+  to{
+    transform:translateY(-120vh);
+    opacity:0;
+  }
+}
+
+/* cats */
+.cat{
+  position:fixed;
+  font-size:40px;
+  animation:walkCat linear infinite;
+}
+
+@keyframes walkCat{
+  from{ left:-50px;}
+  to{ left:110vw;}
+}
+
+/* modal */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.5);
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+
+.modal-content{
+  background:white;
+  color:#333;
+  border-radius:20px;
+  padding:25px;
+  width:100%;
+  max-width:350px;
+  animation:popIn 0.3s ease;
+}
+
+@keyframes popIn{
+  from{ transform:scale(0.7); opacity:0;}
+  to{ transform:scale(1); opacity:1;}
+}
+
+.modal-content button{
+  background:#ff4d6d;
+  color:white;
+  width:100%;
+  margin-top:15px;
+}
+
+/* confetti */
+.confetti{
+  position:fixed;
+  width:8px;
+  height:8px;
+  top:-10px;
+  animation:confettiFall linear forwards;
+}
+
+@keyframes confettiFall{
+  to{
+    transform:translateY(110vh) rotate(360deg);
+    opacity:0;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Sharmin ❤️</h1>
+  <h2>Will you be my Valentine? 💖</h2>
+
+  <button id="yesBtn">Yes 🐾💘</button>
+  <button id="noBtn">No 🙃</button>
+</div>
+
+<audio id="music" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mp3">
+</audio>
+
+<div class="modal" id="popup">
+  <div class="modal-content">
+    <h2>So… how about a date with me? 🐱💖</h2>
+    <p>You make my heart purr 🐾</p>
+    <button id="dateBtn">Say yes to the date 🥹🐱</button>
+  </div>
+</div>
+
+<script>
+
+const yesBtn=document.getElementById("yesBtn");
+const noBtn=document.getElementById("noBtn");
+const popup=document.getElementById("popup");
+const dateBtn=document.getElementById("dateBtn");
+const music=document.getElementById("music");
+
+let yesScale=1;
+let musicStarted=false;
+
+function startMusic(){
+ if(!musicStarted){
+   music.play().catch(()=>{});
+   musicStarted=true;
+ }
+}
+
+/* PHONE OPTIMIZED runaway button */
+function moveNoButton(){
+ startMusic();
+ const x=Math.random()*(window.innerWidth-120);
+ const y=Math.random()*(window.innerHeight-80);
+ noBtn.style.left=x+"px";
+ noBtn.style.top=y+"px";
+
+ yesScale+=0.15;
+ yesBtn.style.transform=`scale(${yesScale})`;
+}
+
+noBtn.addEventListener("touchstart",moveNoButton);
+noBtn.addEventListener("click",moveNoButton);
+
+yesBtn.addEventListener("click",()=>{
+ startMusic();
+ popup.style.display="flex";
+ launchConfetti();
+ celebrateCats();
+});
+
+dateBtn.addEventListener("click",()=>{
+ window.open("https://youtube.com/shorts/7iWZRfYp3Y0?si=LMvuDw7uhlt_wVJn","_blank");
+});
+
+/* hearts */
+setInterval(()=>{
+ const heart=document.createElement("div");
+ heart.className="heart";
+ heart.innerText="💖";
+ heart.style.left=Math.random()*100+"vw";
+ heart.style.animationDuration=4+Math.random()*3+"s";
+ document.body.appendChild(heart);
+ setTimeout(()=>heart.remove(),7000);
+},500);
+
+/* cats */
+function celebrateCats(){
+ for(let i=0;i<3;i++){
+  const cat=document.createElement("div");
+  cat.className="cat";
+  cat.innerText="🐱";
+  cat.style.animationDuration=6+Math.random()*4+"s";
+  cat.style.top=Math.random()*60+"vh";
+  document.body.appendChild(cat);
+  setTimeout(()=>cat.remove(),10000);
+ }
+}
+
+/* confetti */
+function launchConfetti(){
+ for(let i=0;i<120;i++){
+  const confetti=document.createElement("div");
+  confetti.className="confetti";
+  confetti.style.left=Math.random()*100+"vw";
+  confetti.style.background=`hsl(${Math.random()*360},100%,50%)`;
+  confetti.style.animationDuration=2+Math.random()*2+"s";
+  document.body.appendChild(confetti);
+  setTimeout(()=>confetti.remove(),4000);
+ }
+}
+
+</script>
+
+</body>
+</html>
