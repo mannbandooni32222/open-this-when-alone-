@@ -24,15 +24,15 @@ body{
   color:white;
 }
 
-/* Cute glass card */
+/* cute card */
 .container{
-  background:rgba(255,255,255,0.15);
-  backdrop-filter:blur(10px);
+  background:rgba(255,255,255,0.18);
+  backdrop-filter:blur(12px);
   border-radius:24px;
   padding:28px 20px;
   width:92%;
   max-width:420px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+  box-shadow:0 10px 30px rgba(0,0,0,0.15);
   position:relative;
 }
 
@@ -48,7 +48,7 @@ h2{
 
 button{
   border:none;
-  padding:14px 20px;
+  padding:14px 22px;
   border-radius:999px;
   font-size:17px;
   margin:10px;
@@ -81,18 +81,6 @@ button{
     transform:translateY(-120vh);
     opacity:0;
   }
-}
-
-/* cats */
-.cat{
-  position:fixed;
-  font-size:40px;
-  animation:walkCat linear infinite;
-}
-
-@keyframes walkCat{
-  from{ left:-50px;}
-  to{ left:110vw;}
 }
 
 /* modal */
@@ -153,7 +141,7 @@ button{
   <h1>Sharmin ❤️</h1>
   <h2>Will you be my Valentine? 💖</h2>
 
-  <button id="yesBtn">Yes 🐾💘</button>
+  <button id="yesBtn">Yes 💘</button>
   <button id="noBtn">No 🙃</button>
 </div>
 
@@ -163,9 +151,9 @@ button{
 
 <div class="modal" id="popup">
   <div class="modal-content">
-    <h2>So… how about a date with me? 🐱💖</h2>
-    <p>You make my heart purr 🐾</p>
-    <button id="dateBtn">Say yes to the date 🥹🐱</button>
+    <h2>So… how about a date with me? 💖</h2>
+    <p>You make my heart happy 💕</p>
+    <button id="dateBtn">Say yes to the date 🥹</button>
   </div>
 </div>
 
@@ -187,7 +175,7 @@ function startMusic(){
  }
 }
 
-/* PHONE OPTIMIZED runaway button */
+/* mobile-friendly runaway button */
 function moveNoButton(){
  startMusic();
  const x=Math.random()*(window.innerWidth-120);
@@ -206,7 +194,6 @@ yesBtn.addEventListener("click",()=>{
  startMusic();
  popup.style.display="flex";
  launchConfetti();
- celebrateCats();
 });
 
 dateBtn.addEventListener("click",()=>{
@@ -224,19 +211,6 @@ setInterval(()=>{
  setTimeout(()=>heart.remove(),7000);
 },500);
 
-/* cats */
-function celebrateCats(){
- for(let i=0;i<3;i++){
-  const cat=document.createElement("div");
-  cat.className="cat";
-  cat.innerText="🐱";
-  cat.style.animationDuration=6+Math.random()*4+"s";
-  cat.style.top=Math.random()*60+"vh";
-  document.body.appendChild(cat);
-  setTimeout(()=>cat.remove(),10000);
- }
-}
-
 /* confetti */
 function launchConfetti(){
  for(let i=0;i<120;i++){
@@ -244,13 +218,4 @@ function launchConfetti(){
   confetti.className="confetti";
   confetti.style.left=Math.random()*100+"vw";
   confetti.style.background=`hsl(${Math.random()*360},100%,50%)`;
-  confetti.style.animationDuration=2+Math.random()*2+"s";
-  document.body.appendChild(confetti);
-  setTimeout(()=>confetti.remove(),4000);
- }
-}
-
-</script>
-
-</body>
-</html>
+  confetti.style.animationDuration=2+Math.r
